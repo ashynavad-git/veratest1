@@ -22,8 +22,11 @@ steps:
 - task: Veracode@3
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
-    AnalysisService: 'vera_Azure'
-    veracodeAppProfile: '$(system.teamProject)'
+    AnalysisService: 'Veracode API'
+    veracodeAppProfile: 'Test_Azure_New'
     version: '$(build.buildNumber)'
-    filepath: '/app/target/verademo.war'
-    maximumWaitTime: '360'
+    filepath: 'app/target/verademo.war'
+    createProfile: true
+    failBuildIfUploadAndScanBuildStepFails: true
+    importResults: true
+    maximumWaitTime: '60'
