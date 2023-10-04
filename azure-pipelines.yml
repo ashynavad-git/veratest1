@@ -8,22 +8,22 @@ trigger:
 pool:
   name: Default
 steps:
-- task: Maven@3
-  displayName: Build with Maven
+- task: Maven@4
   inputs:
-    mavenPomFile: '/Users/amitashokshynavad/myagent/_work/1/s/app/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
+    mavenPomFile: 'app/pom.xml'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    testRunTitle: 'Test'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 - task: Veracode@3
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'vera_Azure'
     veracodeAppProfile: '$(system.teamProject)'
     version: '$(build.buildNumber)'
-    filepath: '/Users/amitashokshynavad/myagent/_work/1/s/app/target/verademo.war'
+    filepath: '/app/target/verademo.war'
     maximumWaitTime: '360'
