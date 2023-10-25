@@ -28,5 +28,4 @@ steps:
     filepath: 'app/target/verademo.war'
     createProfile: true
     failBuildIfUploadAndScanBuildStepFails: true
-    importResults: true
     maximumWaitTime: '60'
