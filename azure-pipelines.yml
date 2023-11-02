@@ -27,5 +27,6 @@ steps:
     version: '$(build.buildNumber)'
     filepath: 'app/target/verademo.war'
     createProfile: true
+    importResults: true
     failBuildIfUploadAndScanBuildStepFails: true
     maximumWaitTime: '60'
