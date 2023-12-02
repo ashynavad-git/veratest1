@@ -40,7 +40,7 @@ steps:
     scanType: 'Dynamic, Static'
     importType: 'All Flaws'
     workItemType: 'Issue'
-    area: 'Azure_vera integration/Boards/Boards'
+    area: 'Azure_vera integration'
     overwriteAreaPathInWorkItemsOnImport: true
-    iterationPath: 'Azure_vera integration/Boards/Boards'
+    iterationPath: 'Azure_vera integration'
     flawImportLimit: '1000'
