@@ -36,11 +36,11 @@ steps:
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'vera_Azure'
-    veracodeAppProfile: '$(system.teamProject)'
-    scanType: 'Dynamic and Static Analysis'
+    veracodeAppProfile: 'myapp'
+    scanType: 'Dynamic, Static'
     importType: 'All Flaws'
     workItemType: 'Issue'
-    area: '$(system.teamProject)'
+    area: 'Azure_vera integration Team'
     overwriteAreaPathInWorkItemsOnImport: true
-    iterationPath: '$(system.teamProject)'
+    iterationPath: 'Azure_vera integration Team'
     flawImportLimit: '1000'
