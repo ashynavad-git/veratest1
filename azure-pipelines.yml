@@ -40,7 +40,7 @@ steps:
     scanType: 'Dynamic, Static'
     importType: 'All Flaws'
     workItemType: 'Issue'
-    area: 'Azure_vera integration Team'
+    area: '$(system.teamProject'
     overwriteAreaPathInWorkItemsOnImport: true
-    iterationPath: 'Azure_vera integration Team'
+    iterationPath: '$(system.teamProject'
     flawImportLimit: '1000'
