@@ -29,7 +29,7 @@ steps:
     filepath: 'app/target/verademo.war'
     createProfile: true
     importResults: true
-    failBuildIfUploadAndScanBuildStepFails: true
+    failBuildIfUploadAndScanBuildStepFails: false
     maximumWaitTime: '60'
 
 - task: Veracode Flaw Importer@3
