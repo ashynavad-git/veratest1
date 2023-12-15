@@ -44,3 +44,17 @@ steps:
     overwriteAreaPathInWorkItemsOnImport: true
     iterationPath: 'Azure_vera integration'
     flawImportLimit: '1000'
+  
+- task: Bash@3
+  displayName: 'Veracode SCA scan'
+  inputs:
+     targetType: 'inline'
+     script: |
+          export SRCCLR_SCM_URI=https://github.com/ashynavad-git/SCA.git
+          export SRCCLR_API_TOKEN="$(SRCCLR_API_TOKEN)"
+          export SRCCLR_SCM_REF=master
+          export SRCCLR_SCM_REV="$(build.buildNumber)"
+          curl -sSL https://download.sourceclear.com/ci.sh | bash -s -- scan --update-advisor
+  continueOnError: true
+  env:
+    SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
