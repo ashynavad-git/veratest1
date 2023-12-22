@@ -24,8 +24,8 @@ steps:
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'vera_Azure'
-    veracodeAppProfile: 'myapp'
-    version: '$(system.teamProject)'
+    veracodeAppProfile: '$(system.teamProject)'
+    version: '$(build.buildNumber)'
     filepath: 'app/target/verademo.war'
     createProfile: true
     importResults: true
