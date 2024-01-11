@@ -26,8 +26,8 @@ steps:
     AnalysisService: 'vera_Azure'
     veracodeAppProfile: '$(system.teamProject)'
     version: '$(build.buildNumber)'
-    filepath: '$(System.DefaultWorkingDirectory)'
-#    filepath: 'app/target/verademo.war'
+#    filepath: '$(System.DefaultWorkingDirectory)'
+    filepath: 'app/target/verademo.war'
     createProfile: true
     importResults: true
     failBuildIfUploadAndScanBuildStepFails: false
