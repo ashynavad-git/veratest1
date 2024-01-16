@@ -33,16 +33,15 @@ steps:
     failBuildIfUploadAndScanBuildStepFails: false
     maximumWaitTime: '60'
 
-#- task: Veracode Flaw Importer@3
-#  inputs:
-#    ConnectionDetailsSelection: 'Service Connection'
-#    AnalysisService: 'vera_Azure'
-#    veracodeAppProfile: 'myapp'
-#    scanType: 'Dynamic, Static'
-#    importType: 'All Flaws'
-#    workItemType: 'Issue'
-#    area: 'Azure_vera integration'
-#    overwriteAreaPathInWorkItemsOnImport: true
-#    iterationPath: 'Azure_vera integration'
-#    flawImportLimit: '1000'
-#  
+- task: Veracode Flaw Importer@3
+  inputs:
+    ConnectionDetailsSelection: 'Service Connection'
+    AnalysisService: 'vera_Azure'
+    veracodeAppProfile: 'myapp'
+    scanType: 'Dynamic, Static'
+    importType: 'All Flaws'
+    workItemType: 'Bug'
+    area: 'Azure_vera integration'
+    overwriteAreaPathInWorkItemsOnImport: true
+    iterationPath: 'Azure_vera integration'
+    flawImportLimit: '1000'
