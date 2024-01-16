@@ -42,6 +42,6 @@ steps:
     importType: 'All Flaws'
     workItemType: 'Bug'
     area: 'Azure_vera integration'
-    overwriteAreaPathInWorkItemsOnImport: true
+#    overwriteAreaPathInWorkItemsOnImport: true
     iterationPath: 'Azure_vera integration'
     flawImportLimit: '1000'
