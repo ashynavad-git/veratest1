@@ -38,4 +38,5 @@ stages:
         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
           export VERACODE_API_KEY_ID=$(myVeracodeId)
           export VERACODE_API_KEY_SECRET=$(myVeracodeSecret)
+          Docker Login
           ./veracode scan --source testimage  --type image
