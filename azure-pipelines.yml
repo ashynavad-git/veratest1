@@ -36,4 +36,6 @@ stages:
       inputs:
        script: |
         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-          ./veracode scan --source $(Build.BuildId) --type image
+          export VERACODE_API_KEY_ID=$(myVeracodeId)
+          export VERACODE_API_KEY_SECRET=$(myVeracodeSecret)
+          ./veracode scan --source $(Build.BuildId)  --type image
