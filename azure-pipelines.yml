@@ -1,48 +1,39 @@
-# Maven
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-# This is an example of using VeraDemo Java test application with the Veracode Static Pipeline scanner.  A Veracode subscription is required.
 trigger:
 - main
-pool:
-  name: Default
-steps:
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'app/pom.xml'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    testRunTitle: 'Test'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-    
-- task: Veracode@3
-  inputs:
-     ConnectionDetailsSelection: 'Service Connection'
-     AnalysisService: 'vera_Azure'
-     veracodeAppProfile: '$(system.teamProject)'
-     version: '$(build.buildNumber)'
-# #    filepath: '$(System.DefaultWorkingDirectory)'
-     filepath: 'app/target/verademo.war'
-     createProfile: true
-     importResults: true
-     failBuildIfUploadAndScanBuildStepFails: false
-     maximumWaitTime: '60'
 
-# - task: Veracode Flaw Importer@3
-#   inputs:
-#     ConnectionDetailsSelection: 'Service Connection'
-#     AnalysisService: 'vera_Azure'
-#     veracodeAppProfile: 'myapp'
-#     scanType: 'Dynamic, Static'
-#     importType: 'All Flaws'
-#     workItemType: 'Bug'
-#     area: 'Azure_vera integration'
-# #    overwriteAreaPathInWorkItemsOnImport: true
-#     iterationPath: 'Azure_vera integration'
-#     flawImportLimit: '1000'
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
+
+    - task: CmdLine@2
+      displayName: Veracode Container scan
+      inputs:
+       script: |
+        curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+          ./veracode scan --source alpine:latest --type image
+      env: 
+        VERACODE_API_KEY_ID: $(myVeracodeId)
+        VERACODE_API_KEY_SECRET: $(myVeracodeSecret)
