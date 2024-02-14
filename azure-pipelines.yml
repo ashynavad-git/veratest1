@@ -11,7 +11,7 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  tag: 'testimage'
 
 stages:
 - stage: Build
@@ -38,5 +38,4 @@ stages:
         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
           export VERACODE_API_KEY_ID=$(myVeracodeId)
           export VERACODE_API_KEY_SECRET=$(myVeracodeSecret)
-          Docker Pull $(Build.BuildId)
-          ./veracode scan --source $(Build.BuildId)  --type image
+          ./veracode scan --source testimage  --type image
