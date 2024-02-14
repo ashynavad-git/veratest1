@@ -21,22 +21,19 @@ stages:
     displayName: Build
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build an image and scan
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-
-    - task: CmdLine@2
-      displayName: Veracode Container scan
       env: 
         VERACODE_API_KEY_ID: $(myVeracodeId)
         VERACODE_API_KEY_SECRET: $(myVeracodeSecret)
       inputs:
-       script: |
+      script: |
         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-          export VERACODE_API_KEY_ID=$(myVeracodeId)
-          export VERACODE_API_KEY_SECRET=$(myVeracodeSecret)
-          Docker Login
-          ./veracode scan --source testimage  --type image
+        export VERACODE_API_KEY_ID=$(myVeracodeId)
+        export VERACODE_API_KEY_SECRET=$(myVeracodeSecret)
+        ./veracode scan --source testimage  --type image
+
