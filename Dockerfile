@@ -6,7 +6,6 @@
 # This is Ubuntu 20.04 LTS
 FROM mariadb:10.6.2
 
-RUN curl -sSL https://www.sourceclear.com/install | sh
 
 # Configure MariaDB
 ENV MYSQL_RANDOM_ROOT_PASSWORD=true
