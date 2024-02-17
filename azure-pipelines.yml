@@ -27,5 +27,15 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+
+    - task: Bash@3
+      displayName: 'Veracode Container scan'
+      inputs:
+       script: |
+        curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+        ./veracode scan --source testimage  --type image
+
+
+
       
 
