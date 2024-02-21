@@ -25,6 +25,7 @@ stages:
       inputs:
         targetType: inline
         script: |
+          docker version
           docker build -f Dockerfile -t Vertest:version.0.0.1
       
 
