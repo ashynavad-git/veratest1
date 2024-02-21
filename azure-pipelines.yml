@@ -28,14 +28,24 @@ stages:
         tags: |
           $(tag)
 
+    # - task: Bash@3
+    #   displayName: 'Veracode Container scan'
+    #   inputs:
+    #    script: |
+    #     curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+    #     ./veracode scan --source docker-desktop://dashboard/build/desktop-linux/desktop-linux/$(tag)  --type image
+
     - task: Bash@3
-      displayName: 'Veracode Container scan'
+      displayName: Veracode CLI SCA & SBOM Generation
+  
       inputs:
+       targetType: inline
        script: |
-        curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-        ./veracode scan --source docker-desktop://dashboard/build/desktop-linux/desktop-linux/$(tag)  --type image
+         pwd
+         export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
+         export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
+         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+         ./veracode sbom --source https://github.com/veracode/verademo --type repo --format table 
 
 
-
-      
 
