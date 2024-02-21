@@ -20,9 +20,6 @@ stages:
   - job: Build
     displayName: Build
     steps:
-    - task: DockerInstaller@0
-      inputs:
-        dockerVersion: '17.09.0-ce'
     - task: Docker@2
       displayName: Build an image and scan
       inputs:
@@ -42,16 +39,16 @@ stages:
     #     curl -fsS https://tools.veracode.com/veracode-cli/install | sh
     #     ./veracode scan --source docker-desktop://dashboard/build/desktop-linux/desktop-linux/$(tag)  --type image
 
-    # - task: Bash@3
-    #   displayName: Veracode CLI SCA
-    #   inputs:
-    #    targetType: inline
-    #    script: |
-    #      pwd
-    #      export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
-    #      export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
-    #      curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-    #      ./veracode scan --source docker-desktop://dashboard/build/desktop-linux/desktop-linux/$(tag) --type image --format table 
+    - task: Bash@3
+      displayName: Veracode CLI SCA
+      inputs:
+       targetType: inline
+       script: |
+         pwd
+         export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
+         export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
+         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+         ./veracode scan --source /Users/amitashokshynavad/myagent/_work/4/s  --type image --format table 
 
 
 
