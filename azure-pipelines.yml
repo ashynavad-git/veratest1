@@ -38,8 +38,7 @@ stages:
     #     ./veracode scan --source docker-desktop://dashboard/build/desktop-linux/desktop-linux/$(tag)  --type image
 
     - task: Bash@3
-      displayName: Veracode CLI SCA & SBOM Generation
-  
+      displayName: Veracode CLI SCA
       inputs:
        targetType: inline
        script: |
