@@ -10,8 +10,8 @@ pool:
 resources:
 - repo: self
 
-# variables:
-#   tag: 'testimage'
+variables:
+  tag: 'Veratest'
 
 stages:
 - stage: Build
@@ -20,20 +20,18 @@ stages:
   - job: Build
     displayName: Build
     steps:
-    - task: Bash@3
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '17.09.0-ce'
+    - task: Docker@2
       displayName: Build an image and scan
       inputs:
-        targetType: inline
-        script: |
-          docker version
-          docker build -f Dockerfile -t Vertest:version.0.0.1
-      
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
+        
 
-      # inputs:
-        # command: build
-        # dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        # tags: |
-        #   $(tag)
 
     # - task: Bash@3
     #   displayName: 'Veracode Container scan'
