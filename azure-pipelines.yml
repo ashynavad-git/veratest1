@@ -15,7 +15,7 @@ steps:
     repository: 'ashynavad-git/veratest1'
     containerRegistry: 'Docker'
     tags: |
-         Veratest:$(Build.BuildId)
+        $(Build.BuildId)
 
 # - task: Bash@3
 #   inputs:
