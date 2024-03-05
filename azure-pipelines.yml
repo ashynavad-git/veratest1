@@ -10,7 +10,7 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    command: 'buildAndPush'
+    command: 'build'
     Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
     repository: 'ashynavad-git/veratest1'
     containerRegistry: 'Docker'
