@@ -10,12 +10,10 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'Docker'
-    command: 'login'
-- task: Docker@2
-  inputs:
     command: 'buildAndPush'
     Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    repository: 'ashynavad-git/veratest1'
+    containerRegistry: 'Docker'
     tags: |
          Veratest:$(Build.BuildId)
 
