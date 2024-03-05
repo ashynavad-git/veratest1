@@ -11,18 +11,23 @@ variables:
    imageName: 'pipeline-docker'
 
 steps:
-# - task: Docker@2
-#   inputs:
-#     command: 'buildAndPush'
-#     Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-    
-- task: Bash@3
+- task: Docker@2
   inputs:
-    targetType: 'inline'
-    script: |
-      Docker login --username $(USERNAME) --password-stdin $(PASSWORD)
-      Docker build -t VerTest:0.0.1
-      Docker Push amitas5697:VerTest:0.0.1
+    command: 'login'
+- task: Docker@2
+  inputs:
+    command: 'buildAndPush'
+    Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    tags: |
+         tag1
+    
+# - task: Bash@3
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       Docker login --username $(USERNAME) --password-stdin $(PASSWORD)
+#       Docker build -t VerTest:0.0.1 .
+#       Docker Push amitas5697:VerTest:0.0.1
 # resources:
 # - repo: self
 
