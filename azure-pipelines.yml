@@ -17,7 +17,7 @@ steps:
     tags: |
         $(Build.BuildId)
 - task: Bash@3
-  displayName: Veracode CLI SCA
+  displayName: Veracode CLI 
   inputs:
        targetType: inline
        script: |
@@ -26,13 +26,16 @@ steps:
          curl -fsS https://tools.veracode.com/veracode-cli/install | sh
          ./veracode scan --source ashynavad-git/veratest1:$(Build.BuildId)  --type image --format table 
 
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#       Docker login --username $(USERNAME) --password-stdin $(PASSWORD)
-#       Docker build -t VerTest:0.0.1 .
-#       Docker Push amitas5697:VerTest:0.0.1
+- task: Bash@3
+  displayName: 'Veracode SCA scan'
+  inputs:
+     targetType: 'inline'
+     script: |
+          export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
+          curl -sSL https://download.sourceclear.com/ci.sh | sh
+          srcclr scan --image ashynavad-git/veratest1:$(Build.BuildId)
+
+
 # resources:
 # - repo: self
 
