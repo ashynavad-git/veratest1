@@ -8,32 +8,43 @@ pool:
   name: Default
 
 steps:
-- task: Docker@2
-  inputs:
-    command: 'build'
-    Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-    repository: 'ashynavad-git/veratest1'
-    containerRegistry: 'Docker'
-    tags: |
-        $(Build.BuildId)
-- task: Bash@3
-  displayName: Veracode CLI 
-  inputs:
-       targetType: inline
-       script: |
-         export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
-         export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
-         curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-         ./veracode scan --source ashynavad-git/veratest1:$(Build.BuildId)  --type image --format table 
+# - task: Docker@2
+#   inputs:
+#     command: 'build'
+#     Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+#     repository: 'ashynavad-git/veratest1'
+#     containerRegistry: 'Docker'
+#     tags: |
+#         $(Build.BuildId)
+# - task: Bash@3
+#   displayName: Veracode CLI 
+#   inputs:
+#        targetType: inline
+#        script: |
+#          export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
+#          export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
+#          curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+#          ./veracode scan --source ashynavad-git/veratest1:$(Build.BuildId)  --type image --format table 
+
+# - task: Bash@3
+#   displayName: 'Veracode SCA scan'
+#   inputs:
+#      targetType: 'inline'
+#      script: |
+#           export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
+#           curl -sSL https://download.sourceclear.com/ci.sh | sh
+#           srcclr scan --image ashynavad-git/veratest1:$(Build.BuildId)
 
 - task: Bash@3
-  displayName: 'Veracode SCA scan'
+  displayName: 'Veracode SBOM Generation'
   inputs:
      targetType: 'inline'
      script: |
-          export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
-          curl -sSL https://download.sourceclear.com/ci.sh | sh
-          srcclr scan --image ashynavad-git/veratest1:$(Build.BuildId)
+        git clone https://github.com/veracode/veracode-python-hmac-example.git
+        pip install -r veracode-python-hmac-example/requirements.txt
+        export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
+        export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
+        http --auth-type=veracode_hmac "https://api.veracode.com/srcclr/sbom/v1/targets/$(applicationGuid)/cyclonedx?type=application"
 
 
 # resources:
