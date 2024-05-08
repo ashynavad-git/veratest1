@@ -51,6 +51,7 @@ steps:
     script: |
       git clone https://github.com/veracode/veracode-python-hmac-example.git
               pip install -r veracode-python-hmac-example/requirements.txt
+              pip install httpie
               export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
               export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
               http --auth-type=veracode_hmac "https://api.veracode.com/srcclr/sbom/v1/targets/21b3a4bc-0876-44e2-823e-7e5934d09e36/cyclonedx?type=application"
