@@ -45,7 +45,11 @@ steps:
 #         export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
 #         export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
 #         http --auth-type=veracode_hmac "https://api.veracode.com/srcclr/sbom/v1/targets/21b3a4bc-0876-44e2-823e-7e5934d09e36/cyclonedx?type=application"
-
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x' # string. Required. Version spec. Default: 3.x.
+    architecture: 'x64' 
+    
 - task: CmdLine@2
   inputs:
     script: |
