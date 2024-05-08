@@ -44,8 +44,15 @@ steps:
         pip install -r veracode-python-hmac-example/requirements.txt
         export VERACODE_API_KEY_ID=$(VERACODE_API_ID)
         export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY)
-        http --auth-type=veracode_hmac "https://api.veracode.com/srcclr/sbom/v1/targets/$(applicationGuid)/cyclonedx?type=application"
+#         http --auth-type=veracode_hmac "https://api.veracode.com/srcclr/sbom/v1/targets/$(applicationGuid)/cyclonedx?type=application"
 
+# - task: Bash@3
+#   displayName: 'Veracode SBOM Generation'
+
+#   inputs:
+#      targetType: 'inline'
+#      script: |
+     
 
 # resources:
 # - repo: self
