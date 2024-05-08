@@ -49,7 +49,7 @@ steps:
   inputs:
     versionSpec: '3.x' # string. Required. Version spec. Default: 3.x.
     architecture: 'x64' 
-    
+    disableDownloadFromRegistry : true
 - task: CmdLine@2
   inputs:
     script: |
