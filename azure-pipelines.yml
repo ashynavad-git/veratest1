@@ -12,7 +12,7 @@ steps:
   inputs:
     script: |
       docker login --username $(Id) --password-stdin $(pwd)
-      docker images
+      docker pull amitas5697/feedback-app:latest
 
 
 # - task: Docker@2
