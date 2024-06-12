@@ -13,8 +13,7 @@ steps:
     script: |
       docker login --username $(Id) --password-stdin $(pwd)
       docker pull amitas5697/feedback-app:latest
-      curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-      ./veracode scan --source amitas5697/feedback-app:latest --type image
+      docker run -d -p 3000:80 amitas5697/feedback-app:latest
 
 # - task: Docker@2
 #   inputs:
@@ -24,6 +23,7 @@ steps:
 #     containerRegistry: 'Docker'
 #     tags: |
 #         $(Build.BuildId)
+
 # - task: Bash@3
 #   displayName: Veracode CLI 
 #   inputs:
