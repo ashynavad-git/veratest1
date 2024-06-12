@@ -8,15 +8,10 @@ pool:
   name: Default
 
 steps:
-- task: DockerInstaller@0
-  inputs:
-    dockerVersion: '17.09.0-ce'
-- task: CmdLine@2
-  inputs:
-    script: |
-      docker login --username $(Id) --password-stdin $(pwd)
-      docker pull amitas5697/feedback-app:latest
-      docker run -d -p 3000:80 amitas5697/feedback-app:latest
+- script: |
+    docker login https://registry.hub.docker.com --username $(Id) --password-stdin $(pwd)
+    docker pull amitas5697/feedback-app:latest
+    docker run -d -p --rm 3000:80 amitas5697/feedback-app:latest
 
 # - task: Docker@2
 #   inputs:
