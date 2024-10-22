@@ -6,12 +6,20 @@ trigger:
 - main
 pool:
   name: Default
+  
+container:
+  image: veracode/api-signing:latest
+  options: --user root
 
 steps:
-- script: |
-    docker login https://registry.hub.docker.com --username $(Id) --password-stdin $(pwd)
-    docker pull amitas5697/feedback-app:latest
-    docker run -d -p 3000:80 amitas5697/feedback-app:latest
+- script: http --auth-type veracode_hmac https://api.veracode.com/api/authn/v2/api_credentials
+  displayName: 'Run a API call'
+
+# steps:
+# - script: |
+#     docker login https://registry.hub.docker.com --username $(Id) --password-stdin $(pwd)
+#     docker pull amitas5697/feedback-app:latest
+#     docker run -d -p 3000:80 amitas5697/feedback-app:latest
 
 # - task: Docker@2
 #   inputs:
